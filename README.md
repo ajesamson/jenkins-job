@@ -19,10 +19,12 @@ any suitable terminal
     
 3. Create a `.env` file and provide the following environment variable
     ```text
-       JENKINS_SERVER=Jenkins server address such as http://ci.cgi.org:8080
+       JENKINS_SERVER=Jenkins server address such as ci.cgi.org:8080
        JENKINS_USER=Valid username
        JENKINS_TOKEN=Token provided for user
     ```
+    
+    Note: The Jenkins server address should be without `http://`
 
 4. Run the application
     ```text

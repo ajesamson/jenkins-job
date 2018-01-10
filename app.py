@@ -1,5 +1,6 @@
 import os
 import jenkins
+import requests
 from os.path import join, dirname
 from dotenv import load_dotenv
 
@@ -17,13 +18,18 @@ try:
     dbManagement = DbManagement()
     dbManagement.setup_table()
     # create jenkins instance
-    server = jenkins.Jenkins(ci_server, username=ci_user, password=ci_token)
+    server = jenkins.Jenkins("http://{}".format(ci_server), username=ci_user, password=ci_token)
 
     # retrieve the jobs
     jobs = server.get_jobs()
     job_status = []
     for job in jobs:
-        current_job = (job['name'], job['color'])
+        buildUrl = 'http://{}:{}@{}/job/{}/lastBuild/api/json'.format(
+                ci_user, ci_token, ci_server, job['name']
+            )
+        lastBuild = requests.get(buildUrl)
+        current_status = lastBuild.json()['result']
+        current_job = (job['name'], job['color'], current_status)
         job_status.append(current_job)
 
     if len(job_status):
