@@ -8,7 +8,7 @@ class DbManagement:
 
         cursor = connection.cursor()
 
-        query = "CREATE TABLE IF NOT EXISTS job_status (id INTEGER PRIMARY KEY, job text, status text)"
+        query = "CREATE TABLE IF NOT EXISTS job_status (id INTEGER PRIMARY KEY, job text, status text, created_at DATE DEFAULT (datetime('now','localtime')))"
         cursor.execute(query)
 
         connection.commit()

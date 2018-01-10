@@ -27,9 +27,8 @@ try:
         job_status.append(current_job)
 
     if len(job_status):
-        print(job_status)
         dbManagement.insert_status(job_status)
 
-    print(job_status)
+    print("Jenkins instance jobs saved to db successfully")
 except:
     print("Jenkins job status logging process failed")
